@@ -7,3 +7,5 @@ The code is built in python, using the classic combination of requests and Beaut
 In addition to those two, the json and csv packages were also imported to work with json and csv file types respectively.
 
 I added an optional sleep() call from the time library which is a more polite way of scraping as it creates a pause between requests, lessening the potential burden on their servers.
+
+Also, added documentation.
