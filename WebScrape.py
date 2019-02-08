@@ -2,14 +2,14 @@ import requests
 from bs4 import BeautifulSoup
 from csv import DictWriter
 import json
-#from time import sleep
+from time import sleep
 
 
 url = 'http://quotes.toscrape.com/'
 # Scrapes website for author's quotes, name, bio, and tags and writes into a text file.
-def scrape_to_file():
+def scrape_to_file(timer):
     # Receives user input for file name. We will use that file to record our scraped data.
-    filename = get_filename() + get_format()
+    filename = get_filename() + '.txt'
     file = open(filename, 'w', encoding = "utf-8")
     
     # Scrapes from page one, the goal is to scrape until the last page.
@@ -52,28 +52,12 @@ def scrape_to_file():
         if next_page:
             page_link = next_page.find('a')['href']
             count += 1
-            #sleep()
+            sleep(timer)
         else:
             page_link = False
     print(f'Website scraping complete! All data has been written to {filename}')
     file.close()
     
-# Receives the user's choice format
-def get_format():
-    # Error handling
-    while True:
-        choice = input('What file type would you like to save the file in? (txt, csv, or json) ').lower()
-        if choice == 'csv' or choice == 'txt' or choice == 'json':
-            yes_or_no = input(f'You have selected the .{choice} format. Is this correct? Yes/No ').lower()
-            if yes_or_no == 'yes':
-                break
-            while yes_or_no != 'no' and yes_or_no != 'yes':
-                yes_or_no = input(f'You have selected the .{choice} format. Is this correct? Yes/No ').lower()
-                if yes_or_no == 'no':
-                    break
-        else:
-            print(f'{choice} is not a valid format. Please pick between txt, csv, or json: ')
-    return '.' + choice
 
 # Receives the user's choice filename
 def get_filename():
@@ -90,10 +74,10 @@ def get_filename():
 
 
 # Scrape the data into a csv or json file (up to the user)
-def scrape_to_csv_or_json():
+def scrape_to_csv_or_json(format, timer):
     
     filename = get_filename()
-    file_format = get_format()
+    file_format = format
     complete_filename = filename + file_format
     page_link = '/page/1'
     count = 1
@@ -132,7 +116,7 @@ def scrape_to_csv_or_json():
         if next_page:
             page_link = next_page.find('a')['href']
             count += 1
-            #sleep()
+            sleep(timer)
         else:
             page_link = False
             
@@ -155,11 +139,11 @@ def welcome():
     print('Welcome to my WebScraping project! You can save the data to a .txt file, .csv file, or .json file.')
     while True:
         choice = input('Take your pick: ').lower()
-        if choice in '.json' or choice in '.csv' or choice in '.txt':
+        if choice in 'json' or choice in 'csv' or choice in 'txt':
             break
         else:
-            print('The choices are .txt, .csv, or .json')
-    return choice  
+            print('The choices are txt, csv, or json')
+    return '.' + choice  
         
 # Asks if the user wants to use the other 2 formats as well.
 def again():
@@ -172,14 +156,26 @@ def again():
     else:
         return False
 
+# This will be passed into the sleep() function to determine how long you would like to wait inbetween pages.        
+def sleep_timer():
+    while True:
+        sleep = input('How long would you like to wait inbetween pages? ')
+        try:
+            val = int(sleep)
+            break
+        except ValueError:
+            print('Please give an integer value!')
+    return val
+
 # Main method. This is where we'll execute our code.
 def main():
     while True:
         pick = welcome()
+        sleep_time = sleep_timer()
         if pick in '.txt':
-            scrape_to_file()
+            scrape_to_file(sleep_time)
         elif pick in '.csv' or pick in '.json':
-            scrape_to_csv_or_json()
+            scrape_to_csv_or_json(pick, sleep_time)
         if not again():
             break
     print('Thanks for using my work.')
