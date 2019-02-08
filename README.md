@@ -6,7 +6,7 @@ However, the site that we're scrapping is quotes.toscrape, which is a site meant
 This code scrapes practically everything that the site offers, from quotes, to the author's origins, to their biography, to even the tags. Everything. Every page. In addition, the user will be asked to save the data into a text, csv or json file. I spent a lot of time on error handling and giving user the maximum freedom with what to do.
 The program begins by asking which file type you would like to save the data to: json, csv or txt. It will not allow answers outside the realm of the 3, thus it will keep asking until you pick one of the 3. It will ask you to confirm to make sure you did not make the wrong choice, and proceed to ask you to pick a name for your file. Again, it will ask for you to confirm your answer. Oh also, it will ask how long you would like to wait before scraping the next page. Although this site allows scraping, some sites may not, and it is always better manners to wait a little in between pages. Finally, the program will proceed to scrape and an option to replay will be presented. 
 
-### Tools
+# Tools
 
 The code is built in python, using the classic combination of Requests and BeautifulSoup4 libraries to get and parse html data.
 In addition to those two, the json and csv packages were also imported to work with json and csv file types respectively. In order to lessen the burden on servers that I scraped, I also used the sleep() call from the time library. This create a temporary pause on the execution of code and provides a moment of respite for the server. 
