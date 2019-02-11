@@ -9,7 +9,7 @@ The program begins by asking which file type you would like to save the data to:
 # Tools
 
 The code is built in python, using the classic combination of Requests and BeautifulSoup4 libraries to get and parse html data.
-In addition to those two, the json and csv packages were also imported to work with json and csv file types respectively. In order to lessen the burden on servers that I scraped, I also used the sleep() call from the time library. This create a temporary pause on the execution of code and provides a moment of respite for the server. 
+In addition to those two, the json and csv packages were also imported to work with json and csv file types respectively. In order to lessen the burden on servers that were scraped, I've also given users the option to call sleep() from the time library. This create a temporary pause on the execution of code and provides a moment of respite for the server. 
 
 
 
